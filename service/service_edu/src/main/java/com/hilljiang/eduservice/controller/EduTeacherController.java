@@ -21,6 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class EduTeacherController {
 
     @Autowired
@@ -39,16 +40,15 @@ public class EduTeacherController {
     }
 
     @GetMapping("paging/{page}/{limit}")
-    public Result pageList(@PathVariable Long page, @PathVariable Long limit){
+    public Result getPages(@PathVariable Long page, @PathVariable Long limit){
         Page<EduTeacher> pageParam = new Page<>(page, limit);
-        int i = 10/0;
         eduTeacherService.page(pageParam, null);
         List<EduTeacher> records = pageParam.getRecords();
         long total = pageParam.getTotal();
         return Result.ok().data("total", total).data("rows", records);
     }
 
-    @PostMapping("condition/paging/{page}/{limit}")
+    @PostMapping("paging/condition/{page}/{limit}")
     public Result getConditionalPages(@PathVariable Long page, @PathVariable Long limit, @RequestBody(required = false) TeacherQuery teacherQuery){
         Page<EduTeacher> pageParam = new Page<>(page, limit);
         eduTeacherService.pageQuery(pageParam, teacherQuery);
@@ -61,6 +61,12 @@ public class EduTeacherController {
     public Result insertTeacher(@RequestBody EduTeacher teacher){
         boolean flag = eduTeacherService.save(teacher);
         return flag ? Result.ok() : Result.error();
+    }
+
+    @GetMapping("{id}")
+    public Result getById(@PathVariable String id){
+        EduTeacher eduTeacher = eduTeacherService.getById(id);
+        return Result.ok().data("teacher",eduTeacher);
     }
 
     @PutMapping("{id}")
