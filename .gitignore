@@ -35,3 +35,4 @@ build/
 
 ### VS Code ###
 .vscode/
+service/service_oss/src/main/resources/application.properties
