@@ -55,7 +55,7 @@ public class CodeGenerator {
         mpg.setPackageInfo(pc);
 
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("edu_subject");
+        strategy.setInclude("edu_course","edu_course_description","edu_chapter","edu_video");
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//数据库表字段
