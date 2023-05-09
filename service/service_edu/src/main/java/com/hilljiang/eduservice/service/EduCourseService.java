@@ -14,4 +14,8 @@ import com.hilljiang.eduservice.entity.valueobject.CourseInfoForm;
  */
 public interface EduCourseService extends IService<EduCourse> {
     String saveCourseInfo(CourseInfoForm courseInfoForm);
+
+    CourseInfoForm getCourseById(String id);
+
+    void updateCourseInfo(CourseInfoForm courseInfoForm);
 }

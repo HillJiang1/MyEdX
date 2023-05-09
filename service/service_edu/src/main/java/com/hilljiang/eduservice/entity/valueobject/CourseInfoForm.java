@@ -14,6 +14,8 @@ public class CourseInfoForm {
 
     private String subjectId;
 
+    private String subjectParentId;
+
     private String title;
 
     private BigDecimal price;

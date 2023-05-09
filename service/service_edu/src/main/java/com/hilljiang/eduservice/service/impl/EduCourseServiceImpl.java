@@ -46,4 +46,33 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         return courseId;
     }
+
+    @Override
+    public CourseInfoForm getCourseById(String id) {
+        CourseInfoForm courseInfoForm = new CourseInfoForm();
+
+        EduCourse eduCourse = baseMapper.selectById(id);
+        BeanUtils.copyProperties(eduCourse,courseInfoForm);
+
+        EduCourseDescription eduCourseDescription = courseDescriptionService.getById(id);
+        courseInfoForm.setDescription(eduCourseDescription.getDescription());
+
+        return courseInfoForm;
+    }
+
+    @Override
+    public void updateCourseInfo(CourseInfoForm courseInfoForm) {
+        EduCourse eduCourse = new EduCourse();
+        BeanUtils.copyProperties(courseInfoForm,eduCourse);
+        int update = baseMapper.updateById(eduCourse);
+        if(update == 0){
+            throw new MyException(20001,"Update course info failed!");
+        }
+
+        EduCourseDescription eduCourseDescription = new EduCourseDescription();
+        BeanUtils.copyProperties(courseInfoForm,eduCourseDescription);
+        courseDescriptionService.updateById(eduCourseDescription);
+    }
+
+
 }

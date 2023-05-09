@@ -30,6 +30,19 @@ public class EduCourseController {
         return Result.ok().data("courseId",id);
     }
 
+    @GetMapping("getCourseInfo/{id}")
+    public Result getCourseInfoById(@PathVariable String id){
+        CourseInfoForm courseInfoForm = courseService.getCourseById(id);
+
+        return Result.ok().data("courseInfo",courseInfoForm);
+    }
+
+    @PostMapping("updateCourseInfo")
+    public Result updateCourseInfoById(@RequestBody CourseInfoForm courseInfoForm){
+        courseService.updateCourseInfo(courseInfoForm);
+
+        return Result.ok();
+    }
 
 }
 
